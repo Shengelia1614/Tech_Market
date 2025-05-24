@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="Fragments :: head"></div>
+
+</head>
+<body>
+    <div th:replace="Fragments :: nav"></div>
+    <div th:layout:fragment="content">
+        <h1 th:text="${product.name}">Product name</h1>
+        <img src="https://via.placeholder.com/150" alt="">
+        <p th:text="${product.description}">Product description</p>
+        <p th:text="${product.price}">Price: </p>
+        <p th:text="${product.category}">Category:</p>
+        <!-- <p>Quantity: 10</p>
+        <p>Add to cart</p>
+        -->
+
+    </div>
+</body>
+</html>

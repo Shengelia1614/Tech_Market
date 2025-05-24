@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Centered Navbar</title>
+    <div th:fragment="head">
+        <link rel="stylesheet" href="/Tech-Market/style.css" >
+    </div>
+
+</head>
+<body>
+<div th:fragment="nav" class="navbar">
+
+<!--    <a href="store" class="nav-button" th:text="#{page.store}">Store</a>-->
+<!--    <a href="second_hand" class="nav-button" th:text="#{page.secondhand}">Second Hand</a>-->
+<!--    <a href="shop" class="nav-button" th:text="#{page.myshop}">MyShop</a>-->
+<!--    <a href="profile" class="nav-button" th:text="#{page.profile}">Profile</a>-->
+
+    <a th:each="page : ${appPages}"
+       th:href="${page.path}"
+       class="nav-button"
+       th:text="#{${page.name}}">
+    </a>
+
+
+    <button id="langToggleBtn" th:text="#{page.lang}">Ln</button>
+
+    <script>
+        document.getElementById('langToggleBtn').addEventListener('click', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentLang = urlParams.get('lang') || 'en';
+
+            const newLang = currentLang === 'en' ? 'ge' : 'en';
+
+            urlParams.set('lang', newLang);
+
+            window.location.search = urlParams.toString();
+        });
+    </script>
+</div>
+
+<div th:fragment="store" class="container">
+    <div class="side-box">
+        <h1 th:text="#{page.categories}">categories</h1>
+    </div>
+    <div class="middle-box">
+        <h1 th:text="#{page.products}">categories</h1>
+        <div th:fragment="prods" th:each="p : ${products}" class="product">
+            <span th:text="${p.name}"></span>
+            <span th:text="${p.price}"></span>
+            <span th:text="${p.description}"></span>
+            <span th:text="${p.category}"></span>
+            <span th:text="${p.image}"></span>
+            <a th:href="@{/product(id=${p.id})}" class="info-button" th:text="#{page.info}">more info</a>
+
+            <form th:if="${isDev}" th:action="@{/product/delete(id=${p.id})}" method="post">
+                <button type="submit" class="delete-button">Delete</button>
+            </form>
+
+        </div>
+    </div>
+    <div class="side-box">
+        <h1 th:text="#{page.sorting}">categories</h1>
+    </div>
+</div>
+<div th:fragment="second_hand" class="container">
+    <div class="side-box"></div>
+    <div class="middle-box">
+        <div th:fragment="prods" th:each="p : ${products}" class="product">
+            <span th:text="${p.name}"></span>
+            <span th:text="${p.price}"></span>
+            <span th:text="${p.description}"></span>
+            <span th:text="${p.category}"></span>
+            <span th:text="${p.image}"></span>
+            <a th:href="@{product(id=${p.id})}" class="info-button">more info</a>
+
+        </div>
+    </div>
+    <div class="side-box"></div>
+</div>
+
+
+
+<div th:fragment="profile_panel" class="profile-panel">
+    
+</div>
+
+
+<div th:fragment="store_panel" class="store-panel">
+
+</div>
+
+
+
+<div  th:fragment="background">
+    <img src="background.png"/>
+
+</div>
+
+<div th:fragment="loginF" class="logn">
+    <form th:action="@{/profile}" method="post1" class="forms">
+        <input type="text" id="l1" placeholder="Email"/>
+        <input type="password" id="l2" placeholder="Password"/>
+        <button type="submit" id="l3">Login</button>
+    </form>
+</div>
+
+<!--<div th:fragment="registerF" class="registr">-->
+<!--    <form th:action="@{/register}" method="post" th:object="${user}" class="forms">-->
+<!--        <input type="text"  placeholder="UserName" th:field="*{name}"/>-->
+<!--        <input type="email"  placeholder="Email" th:field="*{email}"/>-->
+<!--        <input type="password"  placeholder="Password"/>-->
+<!--        <input type="password"  placeholder="RepeatPassword"/>-->
+<!--        <button type="submit" >Register</button>-->
+<!--    </form>-->
+<!--</div>-->
+
+
+
+
+</body>
+</html>

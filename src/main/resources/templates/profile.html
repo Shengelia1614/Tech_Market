@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:replace="Fragments :: head"></div>
+</head>
+<body class="body">
+    <div th:replace="Fragments :: nav"></div>
+    <div class="profile-panel">
+
+        <img src="https://via.placeholder.com/150" alt="">
+        <label th:text="#{page.user} + ': '"></label>
+        <h1 th:text="${profile.name}">UserName: </h1>
+        <label th:text="#{page.email}  + ': '"></label>
+
+        <p th:text="${profile.email}">Email: </p>
+
+        <a href="/Tech-Market/add" class="addProd" th:text="#{page.addproduct}">Add Product</a>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" th:text="#{page.logout}">Logout</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+package ge.TechMarket.Tech_Market.dev;
+
+import ge.TechMarket.Tech_Market.confiuration.Page;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
+import java.util.List;
+
+@Profile("dev")
+@ControllerAdvice
+public class DevSettingsControllerAdvice {
+
+    @Autowired
+    private DevProperties devProperties;
+
+
+    @ModelAttribute("appName")
+    public String AppName() {
+        return devProperties.getName();
+    }
+
+    @ModelAttribute("appPages")
+    public List<Page> AppPages() {
+        return devProperties.getPages();
+    }
+
+
+
+    @Value("${spring.profiles.active:prod}")
+    private String activeProfile;
+
+    @ModelAttribute("isDev")
+    public boolean isDev() {
+        return "dev".equalsIgnoreCase(activeProfile);
+    }
+
+}

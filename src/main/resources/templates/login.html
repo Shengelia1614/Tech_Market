@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <div th:replace="Fragments :: head"></div>
+</head>
+<body class="body">
+<div th:replace="Fragments :: nav"></div>
+<div class="logn">
+<!--    <form th:action="@{/login}" method="post" th:object="${usr}" class="forms">-->
+<!--        <input type="text" id="l1" placeholder="Email" th:field="*{email}" required/>-->
+<!--        <input type="password" id="l2" placeholder="Password" th:field="*{password}" required/>-->
+<!--        <button type="submit" id="l2">Login</button>-->
+
+<!--    </form>-->
+        <form th:action="@{/login}" method="post" class="forms">
+            <label class="l4" th:text="#{page.email}">Email</label>
+            <input type="text" id="l1" name="username" placeholder="Email">
+            <label class="l4" th:text="#{page.password}">Password</label>
+            <input type="password" id="l2" name="password" placeholder="Password">
+
+
+
+            <button type="submit" id="l3" th:text="#{page.login}">Login</button>
+        </form>
+    <a href="register" class="btn" th:text="#{page.register}">Register</a>
+</div>
+</body>
+</html>
