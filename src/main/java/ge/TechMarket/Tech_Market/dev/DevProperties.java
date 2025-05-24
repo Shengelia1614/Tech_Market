@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Component
-@PropertySource("classpath:application_dev.properties")
+@PropertySource("classpath:application-dev.properties")
 @ConfigurationProperties(prefix = "devapp")
 @Validated
 public class DevProperties {
