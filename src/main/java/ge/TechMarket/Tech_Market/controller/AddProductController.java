@@ -5,6 +5,7 @@ import ge.TechMarket.Tech_Market.Model.AddProduct;
 import ge.TechMarket.Tech_Market.Model.Product;
 import ge.TechMarket.Tech_Market.ProductRepository;
 import ge.TechMarket.Tech_Market.entity.product;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -26,6 +27,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
+
+@Slf4j
 @Configuration
 @Controller
 public class AddProductController {
@@ -36,7 +39,10 @@ public class AddProductController {
 
     @GetMapping("/add")
     public String productAdd(Model model) {
+        log.info("ading new product");
+
         model.addAttribute("prod", new product());
+        log.debug("adding {}", model.toString());
 
         return "add";
     }
@@ -45,16 +51,57 @@ public class AddProductController {
 
     @PostMapping("/add")
     public String productAdd(@ModelAttribute("product") AddProduct addProduct, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+        log.info("ading new product to repostiroey");
         if (bindingResult.hasErrors()) {
+            log.error("binding error");
             return "add";
         }
 
         product nprod = new product();
-        nprod.setName(addProduct.getName());
-        nprod.setPrice(addProduct.getPrice());
-        nprod.setCategory(addProduct.getCategory());
-        nprod.setDescription(addProduct.getDescription());
+
+        try{
+            nprod.setName(addProduct.getName());
+            if(nprod.getName()==""){
+                log.warn("empty name");
+            }
+        } catch (Exception e) {
+            log.error("mame was incorrectly passed");
+            return "add";
+        }
+        try{
+            nprod.setPrice(addProduct.getPrice());
+            if(nprod.getPrice()==0){
+                log.warn("price is 0");
+            }
+
+        } catch (Exception e) {
+            log.error("price was incorrectly passed");
+            return "add";
+        }
+        try{
+            nprod.setCategory(addProduct.getCategory());
+            if(nprod.getCategory()==""){
+                throw new RuntimeException();
+            }
+        } catch (Exception e) {
+            log.error("Category was incorrectly passed");
+            return "add";
+        }
+        try{
+            nprod.setDescription(addProduct.getDescription());
+        } catch (Exception e) {
+            log.error("description was incorrectly passed");
+            return "add";
+        }
+
+
+
+
+
         productRepository.save(nprod);
+        log.debug("added {} to repository", nprod.getName() );
+
         return "redirect:/product?id=" + nprod.getId();
 
     }
