@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Centered Navbar</title>
     <div th:fragment="head">
-        <link rel="stylesheet" href="/Tech-Market/style.css" >
+        <link rel="stylesheet" th:href="@{/style.css}" >
     </div>
 
 </head>
@@ -61,7 +61,12 @@
         </div>
     </div>
     <div class="side-box">
+
         <h1 th:text="#{page.sorting}">categories</h1>
+        <form method="get" th:action="@{/store}">
+            <input type="hidden" name="sort" value="price"/>
+            <button type="submit" class="btn btn-primary">Sort by Price ↑</button>
+        </form>
     </div>
 </div>
 <div th:fragment="second_hand" class="container">

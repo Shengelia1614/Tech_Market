@@ -28,4 +28,14 @@ public class product {
     private String image;
     @Column(name="CATEGORY")
     private String category;
+
+    public product(product other) {
+        this.Id = other.Id;
+        this.name = other.name;
+        this.price = other.price;
+        this.description = other.description;
+        this.image = other.image;
+        this.category = other.category;
+    }
+
 }

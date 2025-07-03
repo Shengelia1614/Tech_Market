@@ -16,7 +16,7 @@
 
         <p th:text="${profile.email}">Email: </p>
 
-        <a href="/Tech-Market/add" class="addProd" th:text="#{page.addproduct}">Add Product</a>
+        <a th:href="@{/add}" class="addProd" th:text="#{page.addproduct}">Add Product</a>
         <form th:action="@{/logout}" method="post">
             <button type="submit" th:text="#{page.logout}">Logout</button>
         </form>
